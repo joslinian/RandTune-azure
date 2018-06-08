@@ -41,13 +41,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node AppServer.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://example-user1@randtune1.scm.azurewebsites.net:443/randtune1.git"
-  },
   "author": "",
   "noAnalyze": true,
-  "license": "Apache",
+  "license": "ISC",
   "engines": {
     "node": ">=8.11.2"
   }
