@@ -51,30 +51,30 @@ var App = /** @class */ (function () {
         // Get an mp3 file from the db
         // https://medium.com/@richard534/uploading-streaming-audio-using-nodejs-express-mongodb-gridfs-b031a0bcb20f
         // http://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucket.html#openDownloadStream
-        router.get('/songs/raw/:mp3id', function (req, res) {
-            var mp3Id = new mongodb.ObjectId(req.params.mp3id);
-            console.log("Fetching data for mp3 with id: " + mp3Id);
-            res.set('content-type', 'audio/mp3');
-            res.set('accept-ranges', 'bytes');
-            var bucket = new mongodb.GridFSBucket(_this.db, {
-                bucketName: 'fs'
-            });
-            var downloadStream = bucket.openDownloadStream(mp3Id);
-            downloadStream.on('data', function (chunk) {
-                res.write(chunk);
-            });
-            downloadStream.on('error', function () {
-                res.sendStatus(418); // not actually an appropriate error
-            });
-            downloadStream.on('end', function () {
-                res.end();
-            });
+        // router.get('/songs/raw/:mp3id', (req, res) => {
+        //   var mp3Id = new mongodb.ObjectId(req.params.mp3id);
+        //   console.log("Fetching data for mp3 with id: " + mp3Id);
+        //   res.set('content-type', 'audio/mp3');
+        //   res.set('accept-ranges', 'bytes');
+        //   let bucket = new mongodb.GridFSBucket(this.db, {
+        //     bucketName: 'fs'
+        //   });
+        //   let downloadStream = bucket.openDownloadStream(mp3Id);
+        //   downloadStream.on('data', (chunk) => {
+        //     res.write(chunk);
+        //   });
+        //   downloadStream.on('error', () => {
+        //     res.sendStatus(418); // not actually an appropriate error
+        //   });
+        //   downloadStream.on('end', () => {
+        //     res.end();
+        //   });
+        // });
+        //get all users; unlikely this will be used other than internally
+        router.get('/users', function (req, res) {
+            console.log("Requesting all users in db");
+            _this.Users.retrieveAllUsers(res);
         });
-        // //get all users; unlikely this will be used other than internally
-        // router.get('/users', (req, res) => {
-        //   console.log("Requesting all users in db");
-        //   this.Users.retrieveAllUsers(res);
-        // })
         //get a specific user by musicianid to populate musician info for a song
         // router.get('/users/:musicianid', (req, res) => {
         //   var musid = req.params.musicianid;
@@ -126,8 +126,8 @@ var App = /** @class */ (function () {
         //   this.Users.bindReviewToUser(req.params.userid, reviewid);
         // })
         this.expressApp.use('/', router);
+        this.expressApp.use('/app/json', express.static(__dirname + '/app/json'));
         console.log("before configuring static route");
-        //this.expressApp.use('/', express.static(__dirname + '/pages'));
         this.expressApp.use('/', express.static(__dirname + '/angularDist'));
         console.log("after configuring routes");
     };

@@ -76,32 +76,32 @@ class App {
     // http://mongodb.github.io/node-mongodb-native/3.0/api/GridFSBucket.html#openDownloadStream
 
     
-    router.get('/songs/raw/:mp3id', (req, res) => {
-      var mp3Id = new mongodb.ObjectId(req.params.mp3id);
-      console.log("Fetching data for mp3 with id: " + mp3Id);
-      res.set('content-type', 'audio/mp3');
-      res.set('accept-ranges', 'bytes');
-      let bucket = new mongodb.GridFSBucket(this.db, {
-        bucketName: 'fs'
-      });
-      let downloadStream = bucket.openDownloadStream(mp3Id);
-      downloadStream.on('data', (chunk) => {
-        res.write(chunk);
-      });
-      downloadStream.on('error', () => {
-        res.sendStatus(418); // not actually an appropriate error
-      });
-      downloadStream.on('end', () => {
-        res.end();
-      });
-    });
+    // router.get('/songs/raw/:mp3id', (req, res) => {
+    //   var mp3Id = new mongodb.ObjectId(req.params.mp3id);
+    //   console.log("Fetching data for mp3 with id: " + mp3Id);
+    //   res.set('content-type', 'audio/mp3');
+    //   res.set('accept-ranges', 'bytes');
+    //   let bucket = new mongodb.GridFSBucket(this.db, {
+    //     bucketName: 'fs'
+    //   });
+    //   let downloadStream = bucket.openDownloadStream(mp3Id);
+    //   downloadStream.on('data', (chunk) => {
+    //     res.write(chunk);
+    //   });
+    //   downloadStream.on('error', () => {
+    //     res.sendStatus(418); // not actually an appropriate error
+    //   });
+    //   downloadStream.on('end', () => {
+    //     res.end();
+    //   });
+    // });
 
     
-    // //get all users; unlikely this will be used other than internally
-    // router.get('/users', (req, res) => {
-    //   console.log("Requesting all users in db");
-    //   this.Users.retrieveAllUsers(res);
-    // })
+    //get all users; unlikely this will be used other than internally
+    router.get('/users', (req, res) => {
+      console.log("Requesting all users in db");
+      this.Users.retrieveAllUsers(res);
+    });
     
 
     //get a specific user by musicianid to populate musician info for a song
@@ -164,9 +164,8 @@ class App {
    
 
     this.expressApp.use('/', router);
-    
+    this.expressApp.use('/app/json', express.static(__dirname+'/app/json'));
     console.log("before configuring static route");
-    //this.expressApp.use('/', express.static(__dirname + '/pages'));
     this.expressApp.use('/', express.static(__dirname+'/angularDist'));
 
     console.log("after configuring routes");
