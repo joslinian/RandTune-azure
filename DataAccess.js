@@ -17,7 +17,8 @@ var DataAccess = /** @class */ (function () {
         this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING);
         return this.mongooseInstance;
     };
-    DataAccess.DB_CONNECTION_STRING = 'mongodb://admin:randtuneadmin@ds016298.mlab.com:16298/randtune';
+    //static DB_CONNECTION_STRING:string = 'mongodb://admin:randtuneadmin@ds016298.mlab.com:16298/randtune';
+    DataAccess.DB_CONNECTION_STRING = 'mongodb://exampleuser:music123@ds042908.mlab.com:42908/randtune';
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;
