@@ -58,15 +58,20 @@ class App {
             });
             mongoose.File = gridfs.model;
             var downloadStream = mongoose.File.readById(trackid);
+            var count = 0;
             downloadStream.on('data', (chunk) => {
+                console.log("received chunk :" + count);
+                count++;
                 res.write(chunk);
             });
 
             downloadStream.on('error', () => {
+                console.log("received error");
                 res.sendStatus(404);
             });
 
             downloadStream.on('close', () => {
+                console.log("closing stream");
                 res.end();
             });
         });
