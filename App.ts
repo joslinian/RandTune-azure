@@ -5,6 +5,8 @@ import * as url from 'url';
 import * as bodyParser from 'body-parser';
 import * as multer from 'multer';
 import * as stream from 'stream';
+
+
 //var Q = require('q');
 
 import { SongModel } from './model/SongModel';
@@ -12,6 +14,8 @@ import { UserModel } from './model/UserModel';
 import { ReviewModel } from './model/ReviewModel';
 import { DataAccess } from './DataAccess';
 var fs = require('fs');
+var mongoose = require('mongoose');
+
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -22,7 +26,6 @@ class App {
     public Songs: SongModel;
     public Users: UserModel;
     public Reviews: ReviewModel;
-
 
     //Run configuration methods on the Express instance.
     constructor() {
@@ -46,6 +49,30 @@ class App {
     private routes(): void {
         let router = express.Router();
 
+        router.get('/songs/raw/:trackID', (req, res) => {
+            res.set('content-type', 'audio/mp3');
+            res.set('accept-ranges', 'bytes');
+            var trackid = new mongoose.Types.ObjectId(req.params.trackID);
+            var gridfs = require('mongoose-gridfs')({
+                mongooseConnection: mongoose.connection
+            });
+            mongoose.File = gridfs.model;
+            var downloadStream = mongoose.File.readById(trackid);
+            downloadStream.on('data', (chunk) => {
+                res.write(chunk);
+            });
+
+            downloadStream.on('error', () => {
+                res.sendStatus(404);
+            });
+
+            downloadStream.on('close', () => {
+                res.end();
+            });
+        });
+
+
+
         //get all users; unlikely this will be used other than internally
         router.get('/users', (req, res) => {
             console.log("Requesting all users in db");
@@ -56,7 +83,7 @@ class App {
         router.get('/users/:musicianid', (req, res) => {
             var musid = req.params.musicianid;
             console.log("Requesting a specific user with _id: " + musid);
-            this.Users.retrieveUser(res, { _id: musid});
+            this.Users.retrieveUser(res, { _id: musid });
         })
 
         //get all reviews by a user by _id
@@ -101,6 +128,8 @@ class App {
         this.expressApp.use('/', express.static(__dirname + '/angularSrc'));
 
     }
+
+
 
 }
 

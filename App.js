@@ -7,6 +7,8 @@ var bodyParser = require("body-parser");
 var SongModel_1 = require("./model/SongModel");
 var UserModel_1 = require("./model/UserModel");
 var ReviewModel_1 = require("./model/ReviewModel");
+var fs = require('fs');
+var mongoose = require('mongoose');
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
     //Run configuration methods on the Express instance.
@@ -28,6 +30,25 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        router.get('/songs/raw/:trackID', function (req, res) {
+            res.set('content-type', 'audio/mp3');
+            res.set('accept-ranges', 'bytes');
+            var trackid = new mongoose.Types.ObjectId(req.params.trackID);
+            var gridfs = require('mongoose-gridfs')({
+                mongooseConnection: mongoose.connection
+            });
+            mongoose.File = gridfs.model;
+            var downloadStream = mongoose.File.readById(trackid);
+            downloadStream.on('data', function (chunk) {
+                res.write(chunk);
+            });
+            downloadStream.on('error', function () {
+                res.sendStatus(404);
+            });
+            downloadStream.on('close', function () {
+                res.end();
+            });
+        });
         //get all users; unlikely this will be used other than internally
         router.get('/users', function (req, res) {
             console.log("Requesting all users in db");
