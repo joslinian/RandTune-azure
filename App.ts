@@ -6,7 +6,6 @@ import * as bodyParser from 'body-parser';
 import * as multer from 'multer';
 import * as stream from 'stream';
 
-
 //var Q = require('q');
 
 import { SongModel } from './model/SongModel';
@@ -16,6 +15,10 @@ import { DataAccess } from './DataAccess';
 var fs = require('fs');
 var mongoose = require('mongoose');
 
+//import necessary packages for googleOauth
+import GooglePassportObj from './GooglePassport';
+let passport = require('passport');
+
 
 // Creates and configures an ExpressJS web server.
 class App {
@@ -23,9 +26,13 @@ class App {
     // ref to Express instance
     public expressApp: express.Application;
 
+    //ref to app models
     public Songs: SongModel;
     public Users: UserModel;
     public Reviews: ReviewModel;
+
+    //ref to google passport
+    public googlePassportObj: GooglePassportObj;
 
     //Run configuration methods on the Express instance.
     constructor() {
@@ -35,6 +42,7 @@ class App {
         this.Songs = new SongModel();
         this.Users = new UserModel();
         this.Reviews = new ReviewModel();
+        this.googlePassportObj = new GooglePassportObj();
     }
 
     // Configure Express middleware.
@@ -42,12 +50,33 @@ class App {
         this.expressApp.use(logger('dev'));
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expressApp.use(passport.initialize());
+        this .expressApp.use(passport.session());
+    }
+
+    //check if user is authenticated with googleOauth
+    private validateAuth(req, res, next):void {
+        if (req.isAuthenticated()) { console.log("user is authenticated"); return next(); }
+        console.log("user is not authenticated");
+        res.redirect('/');
     }
 
 
     // Configure API endpoints.
     private routes(): void {
         let router = express.Router();
+
+        router.get('/auth/google', 
+            passport.authenticate('google', 
+                { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }
+            )
+        );
+
+        router.get('/auth/google/callback', 
+            passport.authenticate('google', 
+                { successRedirect: '/#/list', failureRedirect: '/' }
+            )
+        );
 
         router.get('/songs/raw/:trackID', (req, res) => {
             res.set('content-type', 'audio/mp3');
