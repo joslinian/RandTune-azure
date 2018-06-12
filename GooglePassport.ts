@@ -2,7 +2,7 @@ import googleOauth2 from './googleOauth2';
 
 let passport = require('passport');
 let GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-
+let User = require('./model/UserModel')
 // Creates a Passport configuration for Google
 class GooglePassport {
 
@@ -20,6 +20,7 @@ class GooglePassport {
                 clientID: this.clientId,
                 clientSecret: this.secretId,
                 callbackURL: "http://randtune-su.azurewebsites.net/auth/google/callback",
+                //callbackURL: "http://localhost:8080/auth/google/callback",
                 profileFields: ['id', 'displayName', 'emails']
             },
             (accessToken, refreshToken, profile, done) => {

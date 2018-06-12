@@ -15,6 +15,8 @@ var UserModel = /** @class */ (function () {
             username: String,
             // email (unique) and password are used to login
             email: String,
+            //google user id
+            userId: String,
             // public description about user
             bio: String,
             // public profile links
@@ -36,6 +38,14 @@ var UserModel = /** @class */ (function () {
     UserModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("User", this.schema);
     };
+    // //find user in db
+    // public findById(inId : any) : boolean {
+    //     var query = this.model.findOne({userId: inId});
+    //     query.exec((err,result)=> {
+    //         return (result != null);
+    //     });
+    //     return false;
+    // }
     // retrieve a user using a filter
     UserModel.prototype.retrieveUser = function (response, filter) {
         var query = this.model.findOne(filter);

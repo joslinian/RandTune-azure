@@ -30,12 +30,16 @@ var App = /** @class */ (function () {
         this.expressApp.use(logger('dev'));
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
-        this.expressApp.use(passport.initialize());
         this.expressApp.use(session({ secret: 'elevator music' }));
+        this.expressApp.use(passport.initialize());
         this.expressApp.use(passport.session());
     };
     //check if user is authenticated with googleOauth
     App.prototype.validateAuth = function (req, res, next) {
+        // if(req.user) {
+        //     console.log("user is authenticated");
+        //     return next();
+        // }
         if (req.isAuthenticated()) {
             console.log("user is authenticated");
             return next();
@@ -91,7 +95,7 @@ var App = /** @class */ (function () {
             _this.Reviews.retrieveReviewWithId(res, { user_id: id });
         });
         //get a specific user by email to fill profile information for a user
-        router.get('/profile', this.validateAuth, function (req, res) {
+        router.get('/profile', function (req, res) {
             console.log("Requesting a specific user with email: " + _this.googlePassportObj.email);
             _this.Users.retrieveUser(res, { email: _this.googlePassportObj.email });
         });
@@ -112,8 +116,6 @@ var App = /** @class */ (function () {
             _this.Songs.retrieveRandom(res);
         });
         this.expressApp.use('/', router);
-        //this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-        //this.expressApp.use('/images', express.static(__dirname + '/img'));
         this.expressApp.use('/', express.static(__dirname + '/angularSrc'));
     };
     return App;

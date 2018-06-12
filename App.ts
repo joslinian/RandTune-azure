@@ -52,13 +52,17 @@ class App {
         this.expressApp.use(logger('dev'));
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
-        this.expressApp.use(passport.initialize());
         this.expressApp.use(session({ secret: 'elevator music' }));
+        this.expressApp.use(passport.initialize());
         this.expressApp.use(passport.session());
     }
 
     //check if user is authenticated with googleOauth
     private validateAuth(req, res, next):void {
+        // if(req.user) {
+        //     console.log("user is authenticated");
+        //     return next();
+        // }
         if (req.isAuthenticated()) { console.log("user is authenticated"); return next(); }
         console.log("user is not authenticated");
         res.redirect('/');
@@ -131,7 +135,7 @@ class App {
         })
 
         //get a specific user by email to fill profile information for a user
-        router.get('/profile', this.validateAuth, (req, res) => {
+        router.get('/profile', (req, res) => {
             console.log("Requesting a specific user with email: " + this.googlePassportObj.email);
             this.Users.retrieveUser(res, { email: this.googlePassportObj.email });
         })
@@ -155,10 +159,8 @@ class App {
             this.Songs.retrieveRandom(res);
         })
 
-        this.expressApp.use('/', router);
 
-        //this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-        //this.expressApp.use('/images', express.static(__dirname + '/img'));
+        this.expressApp.use('/', router);
         this.expressApp.use('/', express.static(__dirname + '/angularSrc'));
 
     }

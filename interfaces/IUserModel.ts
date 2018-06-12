@@ -5,6 +5,8 @@ interface IUserModel extends Mongoose.Document {
     username: string;
     // email (unique) and password are used to login
     email: string;
+    //google user id
+    userId: string;
     // public description about user
     bio: string;
     // public profile links

@@ -21,6 +21,8 @@ class UserModel {
                 username: String,
                 // email (unique) and password are used to login
                 email: String,
+                //google user id
+                userId: String,
                 // public description about user
                 bio: String,
                 // public profile links
@@ -44,6 +46,15 @@ class UserModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IUserModel>("User", this.schema);
     }
+
+    // //find user in db
+    // public findById(inId : any) : boolean {
+    //     var query = this.model.findOne({userId: inId});
+    //     query.exec((err,result)=> {
+    //         return (result != null);
+    //     });
+    //     return false;
+    // }
 
     // retrieve a user using a filter
     public retrieveUser(response:any, filter:Object){
