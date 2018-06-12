@@ -1,0 +1,99 @@
+.user-info {
+	padding-top: 60px;
+}
+
+body {
+  padding-top: 60px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 60px;
+  }
+}
+
+.container {
+	padding-top: 60px;
+	padding-bottom: 50px;
+}
+
+audio {
+	width: 100%;
+}
+
+.musician-image {
+	width: auto;
+	height: auto;
+	position: relative;
+}
+
+.user-profile {
+	padding-top: 60px;
+}
+
+#song-sidebar img {
+	padding-bottom: 15 px;
+	border-radius: 0;
+}
+
+#song-sidebar p.card-text {
+	padding: 30px 5px 30px 10px;
+	text-align: left;
+}
+
+.row {
+	padding-top: 60px;
+}
+
+p#song-album {
+  display: inline-block;
+}
+
+h2#song-name {
+  display: inline-block;
+}
+
+div.review-radio {
+	padding: 10px 0 10px 0;
+	width: 100%;
+	display: flex;
+}
+
+div.review-text {
+	padding: 10px 0 10px 0;
+	width: 100%;
+	display: flex;
+}
+
+.social-media-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.social-media-logo {
+	display: flex;
+	align-content: flex-start;
+	color: #541388;
+}
+
+.social-media-logo:hover {
+	color: #2E294E;
+}
+
+#stars {
+	font-size: 2.5rem;
+	color: #ffd400;
+}
+
+div textarea {
+	width: 100%;
+}
+
+.sidebar div.card-body {
+	padding: 0;
+}
+
+.card-header {
+	background: white;
+}

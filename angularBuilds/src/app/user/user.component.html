@@ -1,0 +1,84 @@
+<!-- New Song Page -->
+<div id="user" class="container">
+	<div class="row">
+	
+		<div class="row user-profile">
+			<!-- Left Sidebar Column -->
+			<div class="sidebar col-md-4">
+
+				<!-- Photo and Contact Sidebar -->
+				<div class="card my-4" id="song-sidebar">
+					<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/7/72/US_Navy_070316-N-3271W-004_Musician_2nd_Class_Robert_Collier_and_members_of_the_Destroyers%2C_Navy_Band_Southwest%27s_top_40_rock_group%2C_perform_at_the_Fox_Tucson_Theatre_as_part_of_festivities_congruent_with_Tucson_Navy_Week.jpg" padding="100px"/>
+				</div>
+				<div class="card-body">
+					<table>
+						<tr>
+							<td><h4>Balance:</h4></td>
+							<td style="padding-left: 15px;"><div id="user-balance">{{userBalance}}</div></td>
+						</tr>
+					</table>
+					<div class="row">
+						<div class="col-lg-6"><b>Contact:</b>
+							<ul class="list-unstyled mb-0 social-media-buttons">
+							<li>
+							<a id='musician-facebook'href={{userFB}}>
+								<span class="fa-stack fa-2x social-media-logo">
+									<span class="fa fa-square fa-stack-2x"></span>
+									<span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+								</span>
+							</a>
+							</li>
+							<li>
+							<a id='musician-twitter' href="{{userTwitter}}">
+								<span class="fa-stack fa-2x social-media-logo">
+									<span class="fa fa-square fa-stack-2x"></span>
+									<span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+								</span>
+							</a>
+							</li>
+						</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Sidebar -->
+
+			<!-- Main User Info Column -->
+			<div class="user-info col-md-8">
+				<!-- User Name and Bio -->
+				<div class="card mb-4">
+					<div class="card-body">
+						<h1 id="user-name" class="card-title">{{userFName}} {{userLName}} ({{username}})</h1>
+						<p id="user-bio" class="card-text">{{userBio}}</p>
+					</div>
+				</div>
+
+				<!-- Music and Reviews-->
+				<div class="music-and-reviews card mb-4 border-top-0">
+					<!-- Card Tabs -->
+					<ngb-tabset class="nav-fill">
+						<ngb-tab>
+							<ng-template ngbTabTitle><div class="title">Songs</div></ng-template>
+							<ng-template ngbTabContent>
+								<div class="card-body" *ngFor="let result of songs; let i = index">
+								<user-songs [song]="result" [index]="i">hi</user-songs>
+								</div>
+							</ng-template>
+						</ngb-tab>
+						<ngb-tab>
+							<ng-template ngbTabTitle><div class="title">Reviews</div></ng-template>
+							<ng-template ngbTabContent>
+								<div class="card-body" *ngFor="let result of reviews; let i = index">
+								<reviews-given [review]="result" [index]="i"></reviews-given>
+								</div>
+							</ng-template>
+						</ngb-tab>
+					</ngb-tabset>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	<!-- /.row -->
+</div>
+<!-- /#songs -->

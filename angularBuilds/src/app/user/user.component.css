@@ -1,0 +1,53 @@
+.user-info {
+	padding-top: 60px;
+}
+
+body {
+  padding-top: 60px;
+}
+
+.sidebar {
+    padding-top: 35px;
+}
+
+@media (min-width: 992px) {
+  body {
+    padding-top: 60px;
+  }
+}
+
+.container {
+	padding-top: 60px;
+	padding-bottom: 50px;
+}
+
+.musician-image {
+	width: auto;
+	height: auto;
+	position: relative;
+}
+
+.user-profile {
+	padding-top: 60px;
+}
+
+.social-media-buttons {
+	display: flex;
+	flex-direction: row;
+}
+
+.social-media-logo {
+	color: #541388;
+}
+
+.social-media-logo:hover {
+	color: #2E294E;
+}
+
+.music-and-reviews {
+	background-color: #ec058e;
+}
+
+.title {
+	color: purple !important;
+}

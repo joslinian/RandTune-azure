@@ -1,0 +1,76 @@
+<!-- New Song Page -->
+<div id="songs" class="container">
+	<div class="row">
+		<!-- Blog Entries Column -->
+		<div class="col-md-8">
+			<!-- Song Player Card -->
+			<div class="card my-4">
+				<div class="card-body" ng-controller="ctlr">
+					<audio id="player" controls>
+						<source id="mp3-src" src={{mp3Id}} type="audio/mp3"/>
+					</audio>
+					<h2 id="song-title" class="card-title">{{title}}</h2>
+					<p id="song-album">{{album}}</p>
+					<p  id="song-desc" class="card-text"></p>
+				</div>
+			</div>
+			
+			<!-- Review Card -->
+			<div class="card mb-4">
+				<div class="card-body">
+					<h2 class="card-title">Review</h2>
+					<form action="/html/tags/html_form_tag_action.cfm" method="post">
+						<div class="form-group">
+							<ngb-rating id="stars" [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" max="5"></ngb-rating>
+						</div>
+						<div class="review-text form-group">
+							<textarea name="comments" id="comments" class="form-control" style="font-family:sans-serif;font-size:1.2em;" rows="3" placeholder="What did you think of this song?" wrap="hard">
+							</textarea>
+						</div>
+						<input type="submit" value="Submit">
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- ./col-md-8 -->
+		
+		<!-- Musician Sidebar Column -->
+		<div class="sidebar col-md-4">
+			<div class="card my-4" id="song-sidebar">
+				<h5 id = "musician-name" class="card-header">{{musicianName}}</h5>
+				<img class="card-img-top" src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" padding="100px"/>
+				<p id = "musician-bio" class="card-text">{{musicianBio}}</p>
+			</div>
+			<div class="card-body">
+				<div>
+					<div class="col-lg-6 justify-content-center">
+						<ul class="list-unstyled mb-0 social-media-buttons">
+							<li>
+							<a id='musician-facebook'href={{musicianFB}}>
+								<span class="fa-stack fa-2x social-media-logo">
+									<span class="fa fa-square fa-stack-2x"></span>
+									<span class="fa fa-facebook fa-stack-1x fa-inverse"></span>
+								</span>
+							</a>
+							</li>
+							<li>
+							<a id='musician-twitter' href="{{musicianTwitter}}">
+								<span class="fa-stack fa-2x social-media-logo">
+									<span class="fa fa-square fa-stack-2x"></span>
+									<span class="fa fa-twitter fa-stack-1x fa-inverse"></span>
+								</span>
+							</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.sidebar -->
+		
+	</div>
+	<!-- /.row -->
+</div>
+<!-- /#songs -->
+
+

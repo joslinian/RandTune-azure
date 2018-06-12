@@ -1,0 +1,12 @@
+.container {
+	background-color: white;
+	border-radius: 25px;
+}
+
+#top-row {
+	border-bottom: 1px solid black !important;
+}
+
+td {
+	border: 0;
+}

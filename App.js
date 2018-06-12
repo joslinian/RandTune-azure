@@ -79,19 +79,19 @@ var App = /** @class */ (function () {
             _this.Users.retrieveAllUsers(res);
         });
         // get a specific user by musicianid to populate musician info for a song
-        router.get('/users/:musicianid', this.validateAuth, function (req, res) {
+        router.get('/users/:musicianid', function (req, res) {
             var musid = req.params.musicianid;
             console.log("Requesting a specific user with _id: " + musid);
             _this.Users.retrieveUser(res, { _id: musid });
         });
         //get all reviews by a user by _id
-        router.get('/users/profile/reviews/:id', this.validateAuth, function (req, res) {
+        router.get('/users/profile/reviews/:id', function (req, res) {
             var id = req.params.id;
             console.log("Requesting all review for user with id: " + id);
             _this.Reviews.retrieveReviewWithId(res, { user_id: id });
         });
         //get a specific user by email to fill profile information for a user
-        router.get('/users/profile/:email', this.validateAuth, function (req, res) {
+        router.get('/users/profile/:email', function (req, res) {
             var email = req.params.email;
             console.log("Requesting a specific user with email: " + email);
             _this.Users.retrieveUser(res, { email: email });
@@ -109,7 +109,7 @@ var App = /** @class */ (function () {
             _this.Reviews.retrieveReviewWithId(res, { _id: reviewid });
         });
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', function (req, res) {
+        router.get('/randomsong', this.validateAuth, function (req, res) {
             _this.Songs.retrieveRandom(res);
         });
         this.expressApp.use('/', router);

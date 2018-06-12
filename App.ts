@@ -117,21 +117,21 @@ class App {
         })
 
         // get a specific user by musicianid to populate musician info for a song
-        router.get('/users/:musicianid', this.validateAuth, (req, res) => {
+        router.get('/users/:musicianid', (req, res) => {
             var musid = req.params.musicianid;
             console.log("Requesting a specific user with _id: " + musid);
             this.Users.retrieveUser(res, { _id: musid });
         })
 
         //get all reviews by a user by _id
-        router.get('/users/profile/reviews/:id', this.validateAuth, (req, res) => {
+        router.get('/users/profile/reviews/:id', (req, res) => {
             var id = req.params.id;
             console.log("Requesting all review for user with id: " + id);
             this.Reviews.retrieveReviewWithId(res, { user_id: id });
         })
 
         //get a specific user by email to fill profile information for a user
-        router.get('/users/profile/:email', this.validateAuth, (req, res) => {
+        router.get('/users/profile/:email', (req, res) => {
             var email = req.params.email;
             console.log("Requesting a specific user with email: " + email);
             this.Users.retrieveUser(res, { email: email });
@@ -152,7 +152,7 @@ class App {
         })
 
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', (req, res) => {
+        router.get('/randomsong', this.validateAuth, (req, res) => {
             this.Songs.retrieveRandom(res);
         })
 
