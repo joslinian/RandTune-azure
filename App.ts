@@ -59,7 +59,6 @@ class App {
 
     //check if user is authenticated with googleOauth
     private validateAuth(req, res, next):void {
-        console.log("current user=" + req.user.id);
         if (req.isAuthenticated()) { console.log("user is authenticated"); return next(); }
         console.log("user is not authenticated");
         res.redirect('/');
@@ -132,9 +131,8 @@ class App {
         })
 
         //get a specific user by email to fill profile information for a user
-        router.get('/users/profile/', this.validateAuth, (req, res) => {
-            var email = req.params.email;
-            console.log("Requesting a specific user with email: " + email);
+        router.get('/profile', this.validateAuth, (req, res) => {
+            console.log("Requesting a specific user with email: " + this.googlePassportObj.email);
             this.Users.retrieveUser(res, { email: this.googlePassportObj.email });
         })
 

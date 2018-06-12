@@ -36,7 +36,6 @@ var App = /** @class */ (function () {
     };
     //check if user is authenticated with googleOauth
     App.prototype.validateAuth = function (req, res, next) {
-        console.log("current user=" + req.user.id);
         if (req.isAuthenticated()) {
             console.log("user is authenticated");
             return next();
@@ -92,9 +91,8 @@ var App = /** @class */ (function () {
             _this.Reviews.retrieveReviewWithId(res, { user_id: id });
         });
         //get a specific user by email to fill profile information for a user
-        router.get('/users/profile/', this.validateAuth, function (req, res) {
-            var email = req.params.email;
-            console.log("Requesting a specific user with email: " + email);
+        router.get('/profile', this.validateAuth, function (req, res) {
+            console.log("Requesting a specific user with email: " + _this.googlePassportObj.email);
             _this.Users.retrieveUser(res, { email: _this.googlePassportObj.email });
         });
         //requesting meta data for a song by song _id
