@@ -59,6 +59,7 @@ class App {
 
     //check if user is authenticated with googleOauth
     private validateAuth(req, res, next):void {
+        console.log("current user=" + req.user.id);
         if (req.isAuthenticated()) { console.log("user is authenticated"); return next(); }
         console.log("user is not authenticated");
         res.redirect('/');
@@ -152,7 +153,7 @@ class App {
         })
 
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', this.validateAuth, (req, res) => {
+        router.get('/randomsong', (req, res) => {
             this.Songs.retrieveRandom(res);
         })
 

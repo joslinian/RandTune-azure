@@ -21,7 +21,6 @@ class UserModel {
                 username: String,
                 // email (unique) and password are used to login
                 email: String,
-                password: String,
                 // public description about user
                 bio: String,
                 // public profile links

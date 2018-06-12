@@ -36,6 +36,7 @@ var App = /** @class */ (function () {
     };
     //check if user is authenticated with googleOauth
     App.prototype.validateAuth = function (req, res, next) {
+        console.log("current user=" + req.user.id);
         if (req.isAuthenticated()) {
             console.log("user is authenticated");
             return next();
@@ -109,7 +110,7 @@ var App = /** @class */ (function () {
             _this.Reviews.retrieveReviewWithId(res, { _id: reviewid });
         });
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', this.validateAuth, function (req, res) {
+        router.get('/randomsong', function (req, res) {
             _this.Songs.retrieveRandom(res);
         });
         this.expressApp.use('/', router);
