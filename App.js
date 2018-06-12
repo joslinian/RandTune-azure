@@ -92,10 +92,10 @@ var App = /** @class */ (function () {
             _this.Reviews.retrieveReviewWithId(res, { user_id: id });
         });
         //get a specific user by email to fill profile information for a user
-        router.get('/users/profile/:email', function (req, res) {
+        router.get('/users/profile/', this.validateAuth, function (req, res) {
             var email = req.params.email;
             console.log("Requesting a specific user with email: " + email);
-            _this.Users.retrieveUser(res, { email: email });
+            _this.Users.retrieveUser(res, { email: passport.email });
         });
         //requesting meta data for a song by song _id
         router.get('/songs/meta/:songid', function (req, res) {
