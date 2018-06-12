@@ -16,7 +16,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 
 //import necessary packages for googleOauth
-import GooglePassportObj from './GooglePassport';
+import GooglePassport from './GooglePassport';
 let passport = require('passport');
 
 
@@ -32,11 +32,11 @@ class App {
     public Reviews: ReviewModel;
 
     //ref to google passport
-    public googlePassportObj: GooglePassportObj;
+    public googlePassportObj: GooglePassport;
 
     //Run configuration methods on the Express instance.
     constructor() {
-        this.googlePassportObj = new GooglePassportObj();
+        this.googlePassportObj = new GooglePassport();
 
         this.expressApp = express();
         this.middleware();
@@ -52,7 +52,7 @@ class App {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
         this.expressApp.use(passport.initialize());
-        this .expressApp.use(passport.session());
+        this.expressApp.use(passport.session());
     }
 
     //check if user is authenticated with googleOauth

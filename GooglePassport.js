@@ -12,7 +12,7 @@ var GooglePassport = /** @class */ (function () {
         passport.use(new GoogleStrategy({
             clientID: this.clientId,
             clientSecret: this.secretId,
-            callbackURL: "/auth/google/callback",
+            callbackURL: "http://randtune-su.azurewebsites.net/auth/google/callback",
             profileFields: ['id', 'displayName', 'emails']
         }, function (accessToken, refreshToken, profile, done) {
             process.nextTick(function () {
