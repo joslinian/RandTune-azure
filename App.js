@@ -115,6 +115,20 @@ var App = /** @class */ (function () {
         router.get('/randomsong', function (req, res) {
             _this.Songs.retrieveRandom(res);
         });
+        router.post('/upload/review/:userid/:songid/:content/:rating', function (req, res) {
+            console.log('posting!');
+            var reviewid = new mongoose.Types.ObjectId();
+            var review = {
+                _id: reviewid,
+                user_id: req.params.userid,
+                song_id: req.params.songid,
+                review_content: req.params.content,
+                date: new Date(),
+                rating: req.params.rating
+            };
+            _this.Reviews.uploadReview(review);
+            _this.Users.bindReviewToUser(req.params.userid, reviewid);
+        });
         this.expressApp.use('/', router);
         this.expressApp.use('/', express.static(__dirname + '/angularSrc'));
     };
