@@ -135,7 +135,7 @@ class App {
         router.get('/users/profile/', this.validateAuth, (req, res) => {
             var email = req.params.email;
             console.log("Requesting a specific user with email: " + email);
-            this.Users.retrieveUser(res, { email: passport.email });
+            this.Users.retrieveUser(res, { email: this.googlePassportObj.email });
         })
 
         //requesting meta data for a song by song _id
