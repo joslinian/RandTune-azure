@@ -11,6 +11,7 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 //import necessary packages for googleOauth
 var GooglePassport_1 = require("./GooglePassport");
+var session = require("express-session");
 var passport = require('passport');
 // Creates and configures an ExpressJS web server.
 var App = /** @class */ (function () {
@@ -30,6 +31,7 @@ var App = /** @class */ (function () {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
         this.expressApp.use(passport.initialize());
+        this.expressApp.use(session({ secret: 'elevator music' }));
         this.expressApp.use(passport.session());
     };
     //check if user is authenticated with googleOauth

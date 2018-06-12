@@ -17,6 +17,7 @@ var mongoose = require('mongoose');
 
 //import necessary packages for googleOauth
 import GooglePassport from './GooglePassport';
+import * as session from 'express-session';
 let passport = require('passport');
 
 
@@ -52,6 +53,7 @@ class App {
         this.expressApp.use(bodyParser.json());
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
         this.expressApp.use(passport.initialize());
+        this.expressApp.use(session({ secret: 'elevator music' }));
         this.expressApp.use(passport.session());
     }
 
@@ -79,7 +81,9 @@ class App {
             )
         );
 
-        router.get('/songs/raw/:trackID', this.validateAuth, (req, res) => {
+        router.get('/songs/raw/:trackID', 
+                    this.validateAuth, 
+                    (req, res) => {
             res.set('content-type', 'audio/mp3');
             res.set('accept-ranges', 'bytes');
             var trackid = new mongoose.Types.ObjectId(req.params.trackID);
