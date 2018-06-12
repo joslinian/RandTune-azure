@@ -127,6 +127,13 @@ class App {
             this.Users.retrieveUser(res, { _id: musid });
         })
 
+        // get all songs by a user by _id
+        router.get('/users/:musicianid/songs', (req, res) => {
+            var musid = req.params.musicianid;
+            console.log("Requesting all songs for a user with _id: " + musid);
+            this.Songs.retrieveSong(res, {musician: musid});
+        })
+
         //get all reviews by a user by _id
         router.get('/users/profile/reviews/:id', (req, res) => {
             var id = req.params.id;

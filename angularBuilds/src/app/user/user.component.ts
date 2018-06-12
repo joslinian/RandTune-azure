@@ -28,14 +28,15 @@ export class UserComponent implements OnInit {
   userTwitter: string;
   userBalance: number;
   reviews: IReviewModelAngular[];
-  songs: ISongModelAngular[];
+	songs: ISongModelAngular[];
+	userId: string;
   
   constructor(
-		private route: ActivatedRoute,
+	private route: ActivatedRoute,
     private location: Location,
     private user$: UserService
   ) {
-	  user$.getUser('mafiag@gmail.com')
+	  user$.getUserProfile()
 	  .subscribe(
 		  result => {
 			this.userFName = result.first_name;
@@ -45,15 +46,16 @@ export class UserComponent implements OnInit {
 			this.userFB = result.facebook;
 			this.userTwitter = result.twitter;
 			this.userBalance = result.balance;
+			this.userId = result._id;
 		  },
 		    () => {},
 			() => {
-				user$.getReviews('5b0de177a0e9e35b0a1665f3')
+				user$.getReviews(this.userId)
 				.subscribe(
 				result => this.reviews = result,
 				() => {},
 				() => {
-					user$.getSongsByUserId('5b0de177a0e9e35b0a1665f2')
+					user$.getSongsByUserId(this.userId)
 					.subscribe(
 					result => {this.songs = result;console.log(this.songs);},
 					() => {},

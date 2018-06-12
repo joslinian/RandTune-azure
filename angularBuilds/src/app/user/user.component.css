@@ -45,9 +45,14 @@ body {
 }
 
 .music-and-reviews {
-	background-color: #ec058e;
+	background-color: #BEA5D3;
 }
 
 .title {
 	color: purple !important;
+}
+
+.user-balance {
+	text-align: center;
+	width: auto;
 }

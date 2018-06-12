@@ -15,18 +15,11 @@ import { UserService } from './user/user-service.service';
 import { ReviewsGivenComponent } from './user/reviews-given/reviews-given.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserSongsComponent } from './user/user-songs/user-songs.component';
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from "angular5-social-login";
 
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("1048829641570-0o3gqdk5i3a8gfcfbk300lp4rsmdijgp.apps.googleusercontent.com")
-  }
-]);
-
-export function provideConfig() {
-  return config;
-}
+// import {VgCoreModule} from 'videogular2/core';
+// import {VgControlsModule} from 'videogular2/controls';
+// import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+// import {VgBufferingModule} from 'videogular2/buffering';
 
 @NgModule({
   declarations: [
@@ -37,17 +30,20 @@ export function provideConfig() {
     UserComponent,
     ReviewsGivenComponent,
     FooterComponent,
-	  UserSongsComponent
+    UserSongsComponent
   ],
   imports: [
     BrowserModule,
 	  FormsModule,
 	  HttpModule,
 	  NgbModule.forRoot(),
-    routing, 
-    SocialLoginModule
+    routing,
+  //   VgCoreModule,
+  //   VgControlsModule,
+  //   VgOverlayPlayModule,
+  //   VgBufferingModule
   ],
-  providers: [SongService, UserService, {provide: AuthServiceConfig, useFactory: provideConfig}],
+  providers: [SongService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

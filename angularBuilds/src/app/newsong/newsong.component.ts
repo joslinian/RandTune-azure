@@ -1,24 +1,3 @@
-/*import { Component, OnInit, Input } from '@angular/core';
-import { SongService } from '../song-service.service';
-@Component({
-  selector: 'app-newsong',
-  templateUrl: './newsong.component.html',
-  styleUrls: ['./newsong.component.css']
-})
-export class NewsongComponent implements OnInit {
-  song: any;
-  constructor(songS: SongService) { 
-    songS.getRandomSong()
-    .subscribe(
-      result => this.song = result,
-      () => {},
-      () => console.log('REST call:' + this.song)
-    );
-  }
-  ngOnInit() {
-  }
-}*/
-
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import { Component, OnInit } from '@angular/core';
@@ -30,11 +9,8 @@ import { Song } from '../share/Song';
 import IUserModelAngular from '../share/IUserModelAngular';
 import { User } from '../share/User';
 import { Plyr } from 'plyr';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  //moduleId: module.id,
   selector: 'app-newsong',
   templateUrl: './newsong.component.html',
   styleUrls: ['./newsong.component.css']
@@ -49,11 +25,12 @@ export class NewsongComponent implements OnInit {
   musicianFB: string;
   musicianTwitter: string;
   mp3Id: string;
-
+  songId: string;
+  reviewrating = 0;
   selected = 0;
   hovered = 0;
   readonly = false;
-
+  
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -66,7 +43,7 @@ export class NewsongComponent implements OnInit {
 			this.album = result.album;
 			this.musician = result.musician;
 			this.mp3Id = '/songs/raw/' + result.mp3_id;
-			
+			this.songId = result._id;
 			var audioPlayer = <HTMLAudioElement>document.getElementById('player');
 			audioPlayer.load();
 		},
@@ -87,5 +64,15 @@ export class NewsongComponent implements OnInit {
 	}
 
   ngOnInit() {}
-
+  
+  submitReview(form, rate){
+	this.song$.submitReview('5b0de177a0e9e35b0a1665f3', this.songId, String(form.value), String(this.selected))
+	.subscribe(
+	result => {console.log('hello!');},
+	() => {console.log('a');},
+	() => {console.log('b');}
+	);
+    alert("The form was submitted");
+    form.reset();
+  }
 }

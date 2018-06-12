@@ -1,1 +1,4 @@
-node_modules/
+./expressServer/node_modules
+node_modules
+git rm --cached ./expressServer/node_modules
+git rm --cached node_modules

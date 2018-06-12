@@ -19,4 +19,9 @@ export class SongService {
 	  .map(response => response.json());
   }
 
+  submitReview(userId: string, songId: string, content: string, rating: string) {
+	var i = '';
+	return this.http.post('/upload/review/' + userId + '/' + songId + '/' + content + '/' + rating, i)
+	.map(response => response.json());
+  }
 }

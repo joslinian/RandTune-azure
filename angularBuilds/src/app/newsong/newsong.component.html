@@ -1,11 +1,11 @@
 <!-- New Song Page -->
-<div id="songs" class="container">
+<div id="songs" class="container" ng-controller="ExampleController">
 	<div class="row">
 		<!-- Blog Entries Column -->
 		<div class="col-md-8">
 			<!-- Song Player Card -->
 			<div class="card my-4">
-				<div class="card-body" ng-controller="ctlr">
+				<div class="card-body" >
 					<audio id="player" controls>
 						<source id="mp3-src" src={{mp3Id}} type="audio/mp3"/>
 					</audio>
@@ -19,15 +19,14 @@
 			<div class="card mb-4">
 				<div class="card-body">
 					<h2 class="card-title">Review</h2>
-					<form action="/html/tags/html_form_tag_action.cfm" method="post">
-						<div class="form-group">
-							<ngb-rating id="stars" [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" max="5"></ngb-rating>
-						</div>
-						<div class="review-text form-group">
-							<textarea name="comments" id="comments" class="form-control" style="font-family:sans-serif;font-size:1.2em;" rows="3" placeholder="What did you think of this song?" wrap="hard">
-							</textarea>
-						</div>
-						<input type="submit" value="Submit">
+					<form #reviewForm="ngForm" (ngSubmit)="submitReview(reviewcontent, reviewrating);">
+						<input type="text" 
+						   class="form-control" 
+						   name="review-content"
+						   ngModel
+						   #reviewcontent="ngModel">
+						<ngb-rating id="stars" [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" max="5"></ngb-rating>
+						<button class="btn btn-primary">Submit</button>
 					</form>
 				</div>
 			</div>
@@ -38,7 +37,7 @@
 		<div class="sidebar col-md-4">
 			<div class="card my-4" id="song-sidebar">
 				<h5 id = "musician-name" class="card-header">{{musicianName}}</h5>
-				<img class="card-img-top" src="https://images.pexels.com/photos/67636/rose-blue-flower-rose-blooms-67636.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" padding="100px"/>
+				<img class="card-img-top" src="http://www.blackberryexclusive.co.uk/music/template/images/default-image.png" padding="100px"/>
 				<p id = "musician-bio" class="card-text">{{musicianBio}}</p>
 			</div>
 			<div class="card-body">
@@ -72,5 +71,8 @@
 	<!-- /.row -->
 </div>
 <!-- /#songs -->
+
+<script>
+</script>
 
 

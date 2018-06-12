@@ -9,7 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 const routes: Routes = [
     { path: '', component: WelcomeComponent },
     { path: 'newsong', component: NewsongComponent },
-    { path: 'user', component: UserComponent },
+    { path: 'profile', component: UserComponent }
 ];
 
-export const routing = RouterModule.forRoot(routes, {useHash:true});
+export const routing = RouterModule.forRoot(routes);

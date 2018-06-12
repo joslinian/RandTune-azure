@@ -38,9 +38,4 @@ export class UserService {
 	  return this.http.get('/users/' + userId + '/songs')
 	  .map(response => response.json());
   }
-  
-  submitReview(userId: string, songId: string, content: string, rating: string) {
-	let i = userId + '/' + songId + '/' + content + '/' + rating;
-	return this.http.post('/upload/review/', i);
-  }
 }
