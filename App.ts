@@ -81,9 +81,7 @@ class App {
             )
         );
 
-        router.get('/songs/raw/:trackID', 
-                    this.validateAuth, 
-                    (req, res) => {
+        router.get('/songs/raw/:trackID', (req, res) => {
             res.set('content-type', 'audio/mp3');
             res.set('accept-ranges', 'bytes');
             var trackid = new mongoose.Types.ObjectId(req.params.trackID);
@@ -113,7 +111,7 @@ class App {
 
 
         //get all users; unlikely this will be used other than internally
-        router.get('/users', this.validateAuth, (req, res) => {
+        router.get('/users', (req, res) => {
             console.log("Requesting all users in db");
             this.Users.retrieveAllUsers(res);
         })
@@ -140,21 +138,21 @@ class App {
         })
 
         //requesting meta data for a song by song _id
-        router.get('/songs/meta/:songid', this.validateAuth, (req, res) => {
+        router.get('/songs/meta/:songid', (req, res) => {
             var songid = req.params.songid;
             console.log("Requesting meta data for song with _id: " + songid);
             this.Songs.retrieveSong(res, { _id: songid });
         })
 
         //get reviews by review _id
-        router.get('/reviews/:reviewid', this.validateAuth, (req, res) => {
+        router.get('/reviews/:reviewid', (req, res) => {
             var reviewid = req.params.reviewid;
             console.log("Requesting review with _id: " + reviewid);
             this.Reviews.retrieveReviewWithId(res, { _id: reviewid });
         })
 
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', this.validateAuth, (req, res) => {
+        router.get('/randomsong', (req, res) => {
             this.Songs.retrieveRandom(res);
         })
 

@@ -49,7 +49,7 @@ var App = /** @class */ (function () {
         var router = express.Router();
         router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
         router.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/#/newsong', failureRedirect: '/' }));
-        router.get('/songs/raw/:trackID', this.validateAuth, function (req, res) {
+        router.get('/songs/raw/:trackID', function (req, res) {
             res.set('content-type', 'audio/mp3');
             res.set('accept-ranges', 'bytes');
             var trackid = new mongoose.Types.ObjectId(req.params.trackID);
@@ -74,7 +74,7 @@ var App = /** @class */ (function () {
             });
         });
         //get all users; unlikely this will be used other than internally
-        router.get('/users', this.validateAuth, function (req, res) {
+        router.get('/users', function (req, res) {
             console.log("Requesting all users in db");
             _this.Users.retrieveAllUsers(res);
         });
@@ -97,19 +97,19 @@ var App = /** @class */ (function () {
             _this.Users.retrieveUser(res, { email: email });
         });
         //requesting meta data for a song by song _id
-        router.get('/songs/meta/:songid', this.validateAuth, function (req, res) {
+        router.get('/songs/meta/:songid', function (req, res) {
             var songid = req.params.songid;
             console.log("Requesting meta data for song with _id: " + songid);
             _this.Songs.retrieveSong(res, { _id: songid });
         });
         //get reviews by review _id
-        router.get('/reviews/:reviewid', this.validateAuth, function (req, res) {
+        router.get('/reviews/:reviewid', function (req, res) {
             var reviewid = req.params.reviewid;
             console.log("Requesting review with _id: " + reviewid);
             _this.Reviews.retrieveReviewWithId(res, { _id: reviewid });
         });
         //get random song from the database using mongo simple-random
-        router.get('/randomsong', this.validateAuth, function (req, res) {
+        router.get('/randomsong', function (req, res) {
             _this.Songs.retrieveRandom(res);
         });
         this.expressApp.use('/', router);
