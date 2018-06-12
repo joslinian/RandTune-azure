@@ -9,8 +9,6 @@ import { User } from '../share/User';
 import IReviewModelAngular from '../share/IReviewModelAngular';
 import { Review } from '../share/Review';
 
-import { AuthService, GoogleLoginProvider, SocialUser } from "angular5-social-login";
-
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -18,24 +16,9 @@ import { AuthService, GoogleLoginProvider, SocialUser } from "angular5-social-lo
 })
 export class WelcomeComponent implements OnInit {
 
-  private user: SocialUser;
-  private loggedIn: boolean;
-
-  constructor(private authService: AuthService) { }
-
-  signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-  }
-
-  signOut(): void {
-    this.authService.signOut();
-  }
+  constructor() { }
 
   ngOnInit() { 
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-    });
   }
 
 }

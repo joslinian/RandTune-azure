@@ -13,6 +13,11 @@ export class UserService {
 	  return this.http.get('/users/profile/' + userEmail)
 	  .map(response => response.json());
   }
+
+  getUserProfile() {
+	  return this.http.get('/profile')
+	  .map(response => response.json());
+  }
   
   getUserById(userId: string) {
 	  return this.http.get('/users/' + userId)
