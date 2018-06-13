@@ -52,7 +52,7 @@ var App = /** @class */ (function () {
         var _this = this;
         var router = express.Router();
         router.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
-        router.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/newsong', failureRedirect: '/' }));
+        router.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/#/newsong', failureRedirect: '/' }));
         router.get('/songs/raw/:trackID', function (req, res) {
             res.set('content-type', 'audio/mp3');
             res.set('accept-ranges', 'bytes');
