@@ -42,6 +42,13 @@ class ReviewModel{
         // add error handling?
     }
 
+    public retrieveAllReviews(response:any){
+        var query = this.model.find();
+        query.exec((err,itemArray)=> {
+            response.json(itemArray);
+        });
+    }
+
 }
 
 export {ReviewModel}

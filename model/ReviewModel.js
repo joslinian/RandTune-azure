@@ -33,6 +33,12 @@ var ReviewModel = /** @class */ (function () {
         this.model.create(review);
         // add error handling?
     };
+    ReviewModel.prototype.retrieveAllReviews = function (response) {
+        var query = this.model.find();
+        query.exec(function (err, itemArray) {
+            response.json(itemArray);
+        });
+    };
     return ReviewModel;
 }());
 exports.ReviewModel = ReviewModel;

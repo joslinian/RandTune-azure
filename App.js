@@ -117,6 +117,11 @@ var App = /** @class */ (function () {
             console.log("Requesting review with _id: " + reviewid);
             _this.Reviews.retrieveReviewWithId(res, { _id: reviewid });
         });
+        //get all reviews in the db : for testing
+        router.get('/reviews', function (req, res) {
+            console.log("Requesting all reviews");
+            _this.Reviews.retrieveAllReviews(res);
+        });
         //get random song from the database using mongo simple-random
         router.get('/randomsong', function (req, res) {
             _this.Songs.retrieveRandom(res);
