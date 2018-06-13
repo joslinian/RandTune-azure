@@ -192,9 +192,6 @@ class App {
         this.expressApp.use('/', express.static(__dirname + '/angularSrc'));
 
     }
-
-
-
 }
 
 export { App };
