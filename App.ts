@@ -81,7 +81,7 @@ class App {
 
         router.get('/auth/google/callback', 
             passport.authenticate('google', 
-                { successRedirect: '/#/newsong', failureRedirect: '/' }
+                { successRedirect: '/newsong', failureRedirect: '/' }
             )
         );
 
